@@ -1,0 +1,59 @@
+﻿<Window x:Class="GostuffsAutoSync.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GostuffsAutoSync"
+        mc:Ignorable="d"
+        Title="GoStuffs AutoSync" Height="621.125" Width="1052" Loaded="Window_Loaded">
+    <Grid Margin="0,0,0,0">
+        <DataGrid x:Name="gridProduct" AutoGenerateColumns="true"  ItemsSource="{Binding}" Margin="10,191,10,10" MaxColumnWidth="300">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding sync_state}" Value="error">
+                            <Setter Property="Background" Value="#66FF8C8C"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding sync_state}" Value="changed">
+                            <Setter Property="Background" Value="#668EFB8E"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding sync_state}" Value="same">
+                            <Setter Property="Background" Value="#66FDFABC"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding sync_state}" Value="duplicated">
+                            <Setter Property="Background" Value="#CCFF3838"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <Button x:Name="btnOpenFile" Content="Open File" HorizontalAlignment="Left" Margin="17,23,0,0" VerticalAlignment="Top" Width="73" Click="btnOpenFile_Click" Height="20"/>
+        <TextBox x:Name="txtFilePath" Height="22" Margin="162,22,421,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="97,23,0,0" VerticalAlignment="Top" Width="60" Click="btnReset_Click" Height="20"/>
+        <Button x:Name="btnCheck" Content="Check" HorizontalAlignment="Left" Margin="18,54,0,0" VerticalAlignment="Top" Width="60" Click="btnCheck_Click" Height="20"/>
+        <Button x:Name="btnAutomation" Content="Run All" HorizontalAlignment="Left" Margin="104,54,0,0" VerticalAlignment="Top" Width="60" Click="btnAsyncAutomation_Click" Height="20"/>
+        <Button x:Name="btnExportPriceChanged" Content="Export Price Changed" HorizontalAlignment="Left" Margin="17,127,0,0" VerticalAlignment="Top" Width="132" Click="btnExportPriceChanged_Click" Height="20"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="621,54,0,0" VerticalAlignment="Top" Width="82" Click="btnSave_Click" RenderTransformOrigin="0.583,-1.555" Height="20"/>
+        <TextBox x:Name="txtPriceChangedExport" Height="24" Margin="162,125,264,0" TextWrapping="Wrap" Text="Output File" VerticalAlignment="Top"/>
+        <Button x:Name="btnExportInvalidPrice" Content="Export Invalid Price" HorizontalAlignment="Left" Margin="17,158,0,0" VerticalAlignment="Top" Width="132" Height="20" Click="btnExportInvalidPrice_Click"/>
+        <TextBox x:Name="txtInvalidPrice" Height="22" Margin="162,157,264,0" TextWrapping="Wrap" Text="Output File" VerticalAlignment="Top"/>
+        <TextBlock x:Name="lbRowsCount" HorizontalAlignment="Right" Margin="0,27,65,0" TextWrapping="Wrap" Text="Rows" VerticalAlignment="Top"/>
+        <TextBlock x:Name="lbInvalidPriceCount" HorizontalAlignment="Right" Margin="0,159,65,0" TextWrapping="Wrap" Text="Rows" VerticalAlignment="Top"/>
+        <TextBlock x:Name="lbPriceChangedCount" HorizontalAlignment="Right" Margin="0,131,65,0" TextWrapping="Wrap" Text="Rows" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckPublishValidPrice" Content="Publish Valid Price" HorizontalAlignment="Right" Margin="0,131,140,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtTimeout" HorizontalAlignment="Left" Height="24" Margin="810,52,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="45"/>
+        <CheckBox x:Name="ckUnpublishInvalidPrice" Content="Unpublish Invalid Price" HorizontalAlignment="Right" Margin="0,161,118,0" VerticalAlignment="Top" IsChecked="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="737,56,0,0" TextWrapping="Wrap" Text="Timeout (s)" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckClearCookies" Content="Clear Cookies" HorizontalAlignment="Right" Margin="0,56,80,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAmazon" Content="Amazon Run" HorizontalAlignment="Left" Margin="187,54,0,0" VerticalAlignment="Top" Width="86" Click="btnAmazon_Click" RenderTransformOrigin="0.583,-1.555" Height="20"/>
+        <Button x:Name="btnWalmart" Content="Walmart Run" HorizontalAlignment="Left" Margin="303,54,0,0" VerticalAlignment="Top" Width="75" Click="btnWalmart_Click" RenderTransformOrigin="0.583,-1.555" Height="20"/>
+        <Button x:Name="btnCostco" Content="Costco Run" HorizontalAlignment="Left" Margin="400,54,0,0" VerticalAlignment="Top" Width="80" Click="btnCostco_Click" RenderTransformOrigin="0.583,-1.555" Height="20"/>
+        <Button x:Name="btnEbay" Content="Ebay Run" HorizontalAlignment="Left" Margin="510,54,0,0" VerticalAlignment="Top" Width="83" Click="btnEbay_Click" RenderTransformOrigin="0.583,-1.555" Height="20"/>
+        <TextBox x:Name="txtScheduleMinutes" HorizontalAlignment="Right" Height="24" Margin="0,19,118,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="36" />
+        <CheckBox x:Name="ckScheduleMinute" Content="Run every (min)" HorizontalAlignment="Right" Margin="0,27,159,0" VerticalAlignment="Top" Checked="ckScheduleMinute_Checked" Unchecked="ckScheduleMinute_Unchecked"/>
+        <PasswordBox x:Name="txtPwd" HorizontalAlignment="Right" Margin="0,23,282,0" VerticalAlignment="Top" Width="54" Height="22"/>
+        <TextBox x:Name="txtUser" HorizontalAlignment="Right" Height="22" Margin="0,23,341,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+        <Button x:Name="btnMacys" Content="Macys" HorizontalAlignment="Left" Margin="187,90,0,0" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.583,-1.555" Height="20" Click="btnMacys_Click"/>
+        <Button x:Name="btnNike" Content="Nike" HorizontalAlignment="Left" Margin="303,90,0,0" VerticalAlignment="Top" Width="86" RenderTransformOrigin="0.583,-1.555" Height="20" Click="btnNike_Click"/>
+    </Grid>
+</Window>
